@@ -10,11 +10,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class StudentServiseImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
     private final Map<Long, Student> students = new HashMap<>();
     private static Long idCounter = 1L;
+
     @Override
     public Student add(Student student) {
+
         students.put(idCounter++, student);
         return student;
     }
