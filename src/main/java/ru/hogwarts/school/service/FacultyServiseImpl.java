@@ -3,52 +3,47 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.EntityNotFoundException;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repository.FacultyRepository;
 
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.stream.Collectors;
 
 @Service
 public class FacultyServiseImpl implements FacultyService {
-    private final Map<Long, Faculty> faculties = new HashMap<>();
-    private static Long idCounter = 1L;
+    private final FacultyRepository facultyRepository;
+
+    public FacultyServiseImpl(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
+
     @Override
     public Faculty add(Faculty faculty) {
-        faculties.put(idCounter++, faculty);
-        return faculty;
+        return facultyRepository.save(faculty);
     }
 
     @Override
     public Faculty get(Long id) {
-        if (faculties.containsKey(id)) {
-            return faculties.get(id);
-        }
+        return facultyRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
-
-        throw new EntityNotFoundException();
     }
 
     @Override
     public Faculty update(Faculty faculty) {
-        if (faculties.containsKey(faculty.getId())) {
-            return faculties.put(faculty.getId(), faculty);
-        }
-        throw new EntityNotFoundException();
+        return facultyRepository.save(faculty);
     }
 
     @Override
     public Faculty remove(Long id) {
-        if (faculties.containsKey(id)) {
-            return faculties.remove(id);
-        }
-        throw new EntityNotFoundException();
+        Faculty faculty = get(id);
+        facultyRepository.deleteById(id);
+        return faculty;
     }
 
     @Override
     public Collection<Faculty> getByColor(String color) {
-        return faculties.values().stream()
+        return getAll().stream()
                 .filter(s -> s.getColor().equals(color))
                 .collect(Collectors.toList());
 
@@ -56,6 +51,6 @@ public class FacultyServiseImpl implements FacultyService {
 
     @Override
     public Collection<Faculty> getAll() {
-        return faculties.values();
+        return facultyRepository.findAll();
     }
 }
