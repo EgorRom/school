@@ -3,6 +3,7 @@ package ru.hogwarts.school.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 @Entity(name = "students")
 public class Student {
@@ -11,6 +12,7 @@ public class Student {
     private Long id;
     private String name;
     private Integer age;
+
 
 
 

@@ -8,3 +8,6 @@ select * from students where name like '%о%'
 select * from students where age < id
 --5. Получить всех студентов упорядоченных по возрасту.
 select * from students order by "age"
+SELECT COUNT(id) FROM students
+SELECT AVG(age) FROM students
+select * from students order by id desc limit 5

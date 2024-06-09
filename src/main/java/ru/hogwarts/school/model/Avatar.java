@@ -16,6 +16,7 @@ public class Avatar {
     @OneToOne
     private Student student;
 
+
     public Avatar() {
     }
 

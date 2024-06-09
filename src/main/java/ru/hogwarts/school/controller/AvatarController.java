@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 @RequestMapping("avatar")
@@ -59,5 +60,11 @@ public class AvatarController {
             response.setContentLength((int) avatar.getFileSize());
             is.transferTo(os);
         }
+    }
+    @GetMapping(value = "/{id}/avatar-from-page")
+    @Operation(summary = "Получение аватарок постранично из бд")
+    public ResponseEntity<List<Avatar>> AvatarPage(@PathVariable("number")Integer pageNumber ,@PathVariable("size") Integer pageSize) {
+       List< Avatar> avatar = avatarService.findAvatarPage(pageNumber,pageSize);
+        return ResponseEntity.ok(avatar);
     }
 }
