@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -61,10 +62,10 @@ public class AvatarController {
             is.transferTo(os);
         }
     }
-    @GetMapping(value = "/{id}/avatar-from-page")
+    @GetMapping(value = "avatar-from-page")
     @Operation(summary = "Получение аватарок постранично из бд")
-    public ResponseEntity<List<Avatar>> AvatarPage(@PathVariable("number")Integer pageNumber ,@PathVariable("size") Integer pageSize) {
-       List< Avatar> avatar = avatarService.findAvatarPage(pageNumber,pageSize);
+    public ResponseEntity<Collection<Avatar>> AvatarPage(@RequestParam Integer pageNumber , @RequestParam Integer pageSize) {
+       Collection< Avatar> avatar = avatarService.findAvatarPage(pageNumber,pageSize);
         return ResponseEntity.ok(avatar);
     }
 }

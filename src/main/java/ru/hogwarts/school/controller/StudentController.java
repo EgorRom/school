@@ -75,14 +75,16 @@ public class StudentController {
     public Integer getStudentByAll() {
         return service.getStudentByAll();
     }
+
     @GetMapping("students- by - average - age")
     @Operation(summary = "Получение среднего возраста студентов")
     public Integer getStudentByAveragesAge() {
         return service.getStudentByAveragesAge();
     }
+
     @GetMapping("students- by - last - five")
     @Operation(summary = "Получение последних пяти студентов(по id)")
-    public List<Student> getStudentsByLastFive(){
+    public List<Student> getStudentsByLastFive() {
         return service.getStudentsByLastFive();
     }
 }
