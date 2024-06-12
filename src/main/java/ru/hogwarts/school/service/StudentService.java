@@ -24,5 +24,6 @@ public interface StudentService {
     Integer getStudentByAll();
 
     Integer getStudentByAveragesAge();
-   List<Student> getStudentsByLastFive();
+
+    List<Student> getStudentsByLastFive();
 }

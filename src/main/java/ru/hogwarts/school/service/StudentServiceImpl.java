@@ -60,13 +60,18 @@ public class StudentServiceImpl implements StudentService {
         return get(studentId).getFaculty();
 
     }
-    public Integer getStudentByAll(){
+
+    public Integer getStudentByAll() {
         return studentRepository.getStudentByAll();
     }
-    public Integer getStudentByAveragesAge(){
+
+    public Integer getStudentByAveragesAge() {
         return studentRepository.getStudentByAveragesAge();
     }
-    public List<Student> getStudentsByLastFive(){
-        return  studentRepository.getStudentsByLastFive();
-    };
+
+    public List<Student> getStudentsByLastFive() {
+        return studentRepository.getStudentsByLastFive();
+    }
+
+    ;
 }

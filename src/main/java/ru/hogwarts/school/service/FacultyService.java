@@ -15,7 +15,7 @@ public interface FacultyService {
 
     Faculty remove(Long id);
 
-    Collection<Faculty> getByNameOrColor(String name ,String color);
+    Collection<Faculty> getByNameOrColor(String name, String color);
 
     Collection<Faculty> getAll();
 

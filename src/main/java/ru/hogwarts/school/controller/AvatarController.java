@@ -29,12 +29,14 @@ public class AvatarController {
     public AvatarController(AvatarService avatarService) {
         this.avatarService = avatarService;
     }
+
     @PostMapping(value = "/{studentId}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Сохранение аватарки студента")
     public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId, @RequestParam MultipartFile avatar) throws IOException {
         avatarService.uploadAvatar(studentId, avatar);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping(value = "/{id}/avatar-from-db")
     @Operation(summary = "Получение аватара и БД")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long id) {
@@ -48,24 +50,28 @@ public class AvatarController {
                 .headers(headers)
                 .body(avatar.getData());
     }
+
     @GetMapping(value = "/{id}/avatar-from-file")
     @Operation(summary = "Получение аватара с локального диска")
-    public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException{
+    public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Avatar avatar = avatarService.findAvatar(id);
         Path path = Path.of(avatar.getFilePath());
 
-        try(InputStream is = Files.newInputStream(path);
-            OutputStream os = response.getOutputStream()) {
+        try (InputStream is = Files.newInputStream(path);
+             OutputStream os = response.getOutputStream()) {
             response.setStatus(200);
             response.setContentType(avatar.getMediaType());
             response.setContentLength((int) avatar.getFileSize());
             is.transferTo(os);
         }
     }
+
     @GetMapping(value = "avatar-from-page")
     @Operation(summary = "Получение аватарок постранично из бд")
-    public ResponseEntity<Collection<Avatar>> AvatarPage(@RequestParam Integer pageNumber , @RequestParam Integer pageSize) {
-       Collection< Avatar> avatar = avatarService.findAvatarPage(pageNumber,pageSize);
+    public ResponseEntity<Collection<Avatar>> avatarPage(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+        Collection<Avatar> avatar = avatarService.findAvatarPage(pageNumber, pageSize);
         return ResponseEntity.ok(avatar);
     }
+
+
 }

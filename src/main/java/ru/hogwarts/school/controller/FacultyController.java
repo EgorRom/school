@@ -21,18 +21,20 @@ public class FacultyController {
     public FacultyController(FacultyService service) {
         this.service = service;
     }
-@PostMapping
-@Operation(summary = "Создание факультета")
+
+    @PostMapping
+    @Operation(summary = "Создание факультета")
     public ResponseEntity<Faculty> create(@RequestBody Faculty faculty) {
-    Faculty addedFaculty = service.add(faculty);
-    return ResponseEntity.ok(addedFaculty);
-}
-@PutMapping
-@Operation(summary = "Обновление факультета")
-public ResponseEntity<Faculty> update(@RequestBody Faculty faculty) {
-    Faculty updatedFaculty = service.update(faculty);
-    return ResponseEntity.ok(updatedFaculty);
-}
+        Faculty addedFaculty = service.add(faculty);
+        return ResponseEntity.ok(addedFaculty);
+    }
+
+    @PutMapping
+    @Operation(summary = "Обновление факультета")
+    public ResponseEntity<Faculty> update(@RequestBody Faculty faculty) {
+        Faculty updatedFaculty = service.update(faculty);
+        return ResponseEntity.ok(updatedFaculty);
+    }
 
     @DeleteMapping("{id}")
     @Operation(summary = "Удаление факультета")
@@ -47,18 +49,21 @@ public ResponseEntity<Faculty> update(@RequestBody Faculty faculty) {
         Faculty student = service.get(id);
         return ResponseEntity.ok(student);
     }
+
     @GetMapping("by-color")
     @Operation(summary = "Получение факультетов по цвету либо названию")
-    public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name,@RequestParam(required = false)String color) {
+    public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
         Collection<Faculty> faculty = service.getByNameOrColor(name, color);
         return ResponseEntity.ok(faculty);
     }
+
     @GetMapping("all")
     @Operation(summary = "Получение всех факультетов")
     public ResponseEntity<Collection<Faculty>> getAll() {
         Collection<Faculty> faculty = service.getAll();
         return ResponseEntity.ok(faculty);
     }
+
     @GetMapping("student/{facultyId}")
     @Operation(summary = "Получение всех студентов факультета")
     public ResponseEntity<Collection<Student>> getStudentOfFaculty(@PathVariable Long facultyId) {
