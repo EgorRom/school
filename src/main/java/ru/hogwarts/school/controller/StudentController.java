@@ -70,19 +70,19 @@ public class StudentController {
         return ResponseEntity.ok(faculty);
     }
 
-    @GetMapping("students- by - all")
+    @GetMapping("students-by-all")
     @Operation(summary = "Получение колличества всех студентов")
     public Integer getStudentByAll() {
         return service.getStudentByAll();
     }
 
-    @GetMapping("students- by - average - age")
+    @GetMapping("students-by-average-age")
     @Operation(summary = "Получение среднего возраста студентов")
     public Integer getStudentByAveragesAge() {
         return service.getStudentByAveragesAge();
     }
 
-    @GetMapping("students- by - last - five")
+    @GetMapping("students-by-last-five")
     @Operation(summary = "Получение последних пяти студентов(по id)")
     public List<Student> getStudentsByLastFive() {
         return service.getStudentsByLastFive();
