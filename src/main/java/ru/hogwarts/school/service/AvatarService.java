@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.List;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Service
 public class AvatarService {
+    Logger logger = LoggerFactory.getLogger(AvatarService.class);
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
     @Value("${avatars.dir.path}")
@@ -49,15 +52,19 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(Long studentId) {
+        logger.info("Was invoked method for find avatar");
         return avatarRepository.findByStudentId(studentId).orElseThrow(EntityNotFoundException::new );
     }
     private String getExtensions(String fileName) {
+        logger.info("Was invoked method for get extensions");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
     public Avatar findCreadAvatar(Long studentId) {
+        logger.info("Was invoked method for find cread avatar");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
     public List<Avatar> findAvatarPage(Integer pageNumber , Integer pageSize) {
+        logger.info("Was invoked method for find avatar page");
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return avatarRepository.findAll(pageRequest).getContent();
     }

@@ -21,22 +21,26 @@ public class FacultyServiseImpl implements FacultyService {
 
     @Override
     public Faculty add(Faculty faculty) {
+        logger.info("Was invoked method for create faculty");
         return facultyRepository.save(faculty);
     }
 
     @Override
     public Faculty get(Long id) {
+        logger.error("There is not faculty with id = " + id);
         return facultyRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
     }
 
     @Override
     public Faculty update(Faculty faculty) {
+        logger.info("Was invoked method for update faculty");
         return facultyRepository.save(faculty);
     }
 
     @Override
     public Faculty remove(Long id) {
+        logger.error("There is not faculty with id = " + id);
         Faculty faculty = get(id);
         facultyRepository.deleteById(id);
         return faculty;
@@ -44,17 +48,20 @@ public class FacultyServiseImpl implements FacultyService {
 
     @Override
     public Collection<Faculty> getByNameOrColor(String name, String color) {
+        logger.info("Was invoked method for get by name or color");
         return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
 
     }
 
     @Override
     public Collection<Faculty> getAll() {
+        logger.info("Was invoked method for get collection faculties");
         return facultyRepository.findAll();
     }
 
     @Override
     public Collection<Student> getStudents(Long facultyId) {
+        logger.info("Was invoked method for get students of faculty");
         return get(facultyId).getStudents();
     }
 }
