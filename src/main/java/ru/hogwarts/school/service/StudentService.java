@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public interface StudentService {
-    Logger logger = LoggerFactory.getLogger(StudentService.class);
+
     Student add(Student student);
 
     Student get(Long id);
@@ -30,4 +30,8 @@ public interface StudentService {
     Integer getStudentByAveragesAge();
 
     List<Student> getStudentsByLastFive();
+
+    Collection<String> getNamesByH();
+
+    Double getAverageAgeByStream();
 }

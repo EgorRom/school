@@ -9,7 +9,7 @@ import ru.hogwarts.school.model.Student;
 import java.util.Collection;
 
 public interface FacultyService {
-    Logger logger = LoggerFactory.getLogger(FacultyService.class);
+
     Faculty add(Faculty faculty);
 
     Faculty get(Long id);
@@ -23,4 +23,6 @@ public interface FacultyService {
     Collection<Faculty> getAll();
 
     Collection<Student> getStudents(Long facultyId);
+
+    String getLongestFacultyName();
 }
