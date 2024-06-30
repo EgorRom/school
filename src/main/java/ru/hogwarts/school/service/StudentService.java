@@ -34,4 +34,8 @@ public interface StudentService {
     Collection<String> getNamesByH();
 
     Double getAverageAgeByStream();
+
+    void printStudents();
+
+    void printStudentsSync();
 }

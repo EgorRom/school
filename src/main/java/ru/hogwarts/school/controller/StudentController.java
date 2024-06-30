@@ -101,4 +101,17 @@ public class StudentController {
     public ResponseEntity<Collection<String>> getNamesByH() {
         return ResponseEntity.ok(studentService.getNamesByH());
     }
+
+    @GetMapping("students-print")
+    @Operation(summary = "Вывод информации о студентах в разных потоках")
+    public ResponseEntity<Void> printStudents() {
+        studentService.printStudents();
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping("students-print-sync")
+    @Operation(summary = "Вывод информации о студентах в разных потоках")
+    public ResponseEntity<Void> printStudentsSync() {
+        studentService.printStudentsSync();
+        return ResponseEntity.ok().build();
+    }
 }
