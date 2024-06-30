@@ -16,58 +16,65 @@ import java.util.Collection;
 @RequestMapping("faculty")
 @Tag(name = "API для работы со факультетами")
 public class FacultyController {
-    private final FacultyService service;
+    private final FacultyService facultyService;
 
-    public FacultyController(FacultyService service) {
-        this.service = service;
+    public FacultyController(FacultyService facultyService) {
+        this.facultyService = facultyService;
     }
+
 
     @PostMapping
     @Operation(summary = "Создание факультета")
     public ResponseEntity<Faculty> create(@RequestBody Faculty faculty) {
-        Faculty addedFaculty = service.add(faculty);
+        Faculty addedFaculty = facultyService.add(faculty);
         return ResponseEntity.ok(addedFaculty);
     }
 
     @PutMapping
     @Operation(summary = "Обновление факультета")
     public ResponseEntity<Faculty> update(@RequestBody Faculty faculty) {
-        Faculty updatedFaculty = service.update(faculty);
+        Faculty updatedFaculty = facultyService.update(faculty);
         return ResponseEntity.ok(updatedFaculty);
     }
 
     @DeleteMapping("{id}")
     @Operation(summary = "Удаление факультета")
     public ResponseEntity<Faculty> remove(@PathVariable Long id) {
-        Faculty deletedFaculty = service.remove(id);
+        Faculty deletedFaculty = facultyService.remove(id);
         return ResponseEntity.ok(deletedFaculty);
     }
 
     @GetMapping("{id}")
     @Operation(summary = "Получение факультета по id")
     public ResponseEntity<Faculty> get(@PathVariable Long id) {
-        Faculty student = service.get(id);
+        Faculty student = facultyService.get(id);
         return ResponseEntity.ok(student);
     }
 
     @GetMapping("by-color")
     @Operation(summary = "Получение факультетов по цвету либо названию")
     public ResponseEntity<Collection<Faculty>> getByColorOrName(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
-        Collection<Faculty> faculty = service.getByNameOrColor(name, color);
+        Collection<Faculty> faculty = facultyService.getByNameOrColor(name, color);
         return ResponseEntity.ok(faculty);
     }
 
     @GetMapping("all")
     @Operation(summary = "Получение всех факультетов")
     public ResponseEntity<Collection<Faculty>> getAll() {
-        Collection<Faculty> faculty = service.getAll();
+        Collection<Faculty> faculty = facultyService.getAll();
         return ResponseEntity.ok(faculty);
     }
 
     @GetMapping("student/{facultyId}")
     @Operation(summary = "Получение всех студентов факультета")
     public ResponseEntity<Collection<Student>> getStudentOfFaculty(@PathVariable Long facultyId) {
-        Collection<Student> faculty = service.getStudents(facultyId);
+        Collection<Student> faculty = facultyService.getStudents(facultyId);
         return ResponseEntity.ok(faculty);
+    }
+
+    @GetMapping("get-longest-faculty-name")
+    @Operation(summary = "Получение самого длинного названия факультета")
+    public ResponseEntity<String> getLongestFacultyName() {
+        return ResponseEntity.ok(facultyService.getLongestFacultyName());
     }
 }
