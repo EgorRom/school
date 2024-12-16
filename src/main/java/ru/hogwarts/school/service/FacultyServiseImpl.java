@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.EntityNotFoundException;
 import ru.hogwarts.school.model.Faculty;
@@ -9,10 +11,12 @@ import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Service
 public class FacultyServiseImpl implements FacultyService {
+    private final Logger logger = LoggerFactory.getLogger(FacultyService.class);
     private final FacultyRepository facultyRepository;
 
     public FacultyServiseImpl(FacultyRepository facultyRepository) {
@@ -63,5 +67,15 @@ public class FacultyServiseImpl implements FacultyService {
     public Collection<Student> getStudents(Long facultyId) {
         logger.info("Was invoked method for get students of faculty");
         return get(facultyId).getStudents();
+    }
+
+    @Override
+    public String getLongestFacultyName() {
+        logger.info("Was invoked method for get longest faculty name");
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
+                .orElse("")
+                ;
     }
 }

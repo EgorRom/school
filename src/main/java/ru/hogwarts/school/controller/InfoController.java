@@ -14,7 +14,14 @@ public class InfoController {
     }
 
     @GetMapping("/port")
-    public Integer  getPort1() {
+    public Integer getPort1() {
         return infoPortServer.getPort();
     }
+
+    @GetMapping("calculate")
+    public void calculate() {
+        infoPortServer.calculate();
+    }
 }
+
+
